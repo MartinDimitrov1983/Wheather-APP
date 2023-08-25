@@ -2,10 +2,10 @@ export const PREFIX = 'FAVORITE_CITY_MANAGER/';
 
 export const ADD_FAVORITE_CITY = `${PREFIX}ADD_FAVORITE_CITY`;
 export const REMOVE_FAVORITE_CITY = `${PREFIX}REMOVE_FAVORITE_CITY`;
-export const GET_FAVORITE_CITIES_WAETHER = `${PREFIX}GET_FAVORITE_CITIES_WAETHER`;
-export const FAVORITE_CITIES_WAETHER_LOADING = `${PREFIX}FAVORITE_CITIES_WAETHER_LOADING`;
-export const FAVORITE_CITIES_WAETHER_LOADED = `${PREFIX}FAVORITE_CITIES_WAETHER_LOADED`;
-export const FAVORITE_CITIES_WAETHER_LOADING_FAILED = `${PREFIX}FAVORITE_CITIES_WAETHER_LOADING_FAILED`;
+export const GET_FAVORITE_CITIES_WEATHER = `${PREFIX}GET_FAVORITE_CITIES_WEATHER`;
+export const FAVORITE_CITIES_WEATHER_LOADING = `${PREFIX}FAVORITE_CITIES_WEATHER_LOADING`;
+export const FAVORITE_CITIES_WEATHER_LOADED = `${PREFIX}FAVORITE_CITIES_WEATHER_LOADED`;
+export const FAVORITE_CITIES_WEATHER_LOADING_FAILED = `${PREFIX}FAVORITE_CITIES_WEATHER_LOADING_FAILED`;
 
 export const addFavoriteCity = (city) => ({
     type: ADD_FAVORITE_CITY,
@@ -16,51 +16,40 @@ export const removeFavoriteCity = (id) => ({
     payload: id,
 });
 
-export const favoriteCitiesWetherLoading = {
-    type: FAVORITE_CITIES_WAETHER_LOADING,
+export const favoriteCitiesWeatherLoading = {
+    type: FAVORITE_CITIES_WEATHER_LOADING,
 };
-export const favoriteCitiesWetherLoadied = (cities) => ({
-    type: FAVORITE_CITIES_WAETHER_LOADED,
+export const favoriteCitiesWeatherLoadied = (cities) => ({
+    type: FAVORITE_CITIES_WEATHER_LOADED,
     payload: cities,
 });
 export const favoriteCitesWeatherLoadedFailed = (error) => ({
-    type: FAVORITE_CITIES_WAETHER_LOADING_FAILED,
+    type: FAVORITE_CITIES_WEATHER_LOADING_FAILED,
     payload: error,
 });
 
-export function getFavoriteCitiesWather(cities) {
+export function getFavoriteCitiesWeather(cities) {
     return async function (dispatch, _, DataService) {
+        dispatch(favoriteCitiesWeatherLoading);
+        const citiesWithTemp = [];
         try {
-            dispatch(favoriteCitiesWetherLoading);
-            
-            // const cc = currentWeather[0]
-            // const five = fiveDay.DailyForecasts.map((day)=> {
-            //     return {
-            //       day: new Date(day.Date).toLocaleDateString('en-US', {
-            //         weekday: 'short',
-            //       }),
-            //       minimumT: day.Temperature.Minimum.Value,
-            //       maximumT: day.Temperature.Maximum.Value
-            //     }
-            // })
-
-            // const currentCityData = {
-            //   temperature: {
-            //     celsius: {
-            //       value: cc.Temperature.Metric.Value
-            //     },
-            //     fahrenheit :{
-            //       value : cc.Temperature.Imperial.Value
-            //     },
-            //     weatherText: cc.WeatherText
-            //   },
-            //   forecast:[...five],
-            //   cityName: city.cityName,
-            //   cityCountry: city.cityCountry,
-            //   id: city.id
-            // }
-
-            dispatch(favoriteCitiesWetherLoadied(cities));
+            for (const city of cities) {
+                console.log(city);
+                const response = await DataService.getCurrentCondition(city.id);
+                const data = await response.json();
+                console.log(data);
+                const favCityWithTemp = {
+                    ...city,
+                    temperature: {
+                        celsius: {
+                            value: data[0].Temperature.Metric.Value,
+                        },
+                    },
+                };
+                console.log(favCityWithTemp);
+                citiesWithTemp.push(favCityWithTemp);
+            }
+            dispatch(favoriteCitiesWeatherLoadied(citiesWithTemp));
         } catch (error) {
             console.log(error);
             dispatch(favoriteCitesWeatherLoadedFailed(error));

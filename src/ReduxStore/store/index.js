@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 import DataService from '../../services/DataService';
 
-
 const store = createStore(
     rootReducer,
     compose(

@@ -1,12 +1,11 @@
 import React from 'react';
-import {Button }from  '@mui/material';
+import { Button } from '@mui/material';
 import {
-
-  Favorite as FavoriteIcon,
-  FavoriteBorder as FavoriteBorderIcon,
+    Favorite as FavoriteIcon,
+    FavoriteBorder as FavoriteBorderIcon,
 } from '@mui/icons-material';
 
-function FavoriteButton({ handleFavoriteToggle,isFavorite }) {
+function FavoriteButton({ handleFavoriteToggle, isFavorite }) {
     return (
         <Button
             sx={{ marginTop: 2.5 }}

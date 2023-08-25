@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     TextField,
     Button,
@@ -14,7 +14,6 @@ import {
 } from '../../ReduxStore/actions/favorites';
 import { getCurrentCityData } from '../../ReduxStore/actions/currentCity';
 import { BASE_URL, API_KEY, AUTOCOMPLETE_URL } from '../../helpers/constants';
-import { response } from './response';
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
 import FavoriteButton from '../../components/Button/Button';
 import Location from '../../components/Loacation/Location';
@@ -27,7 +26,6 @@ const HomePage = () => {
     const currentCityData = useSelector((state) => state.currentCity);
     const dispatch = useDispatch();
     const [cityName, setCityName] = useState('');
-    const [weatherData, setWeatherData] = useState({});
     const [anchorEl, setAnchorEl] = useState(null);
     const [options, setOptions] = useState([
         { cityCountry: 'GB', cityName: 'London', id: 328328 },
@@ -35,8 +33,7 @@ const HomePage = () => {
     const [open, setOpen] = useState(false);
     const [errOpen, setErrOpen] = useState('');
 
-
-    console.log(currentCityData)
+    console.log(currentCityData);
     const isFavorite = (id) => {
         return !!favorites.find((city) => city.id === id);
     };
@@ -88,7 +85,6 @@ const HomePage = () => {
 
     const handleMenuItemClick = (city) => {
         dispatch(getCurrentCityData(city));
-        setWeatherData(city);
         setCityName('');
         setOptions([]);
         setOpen(false);

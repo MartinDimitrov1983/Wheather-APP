@@ -16,14 +16,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: "center",
+        alignItems: 'center',
         flexWrap: 'wrap',
         gap: theme.spacing(3),
         margin: theme.spacing(2),
         minWidth: '320px',
         minHeight: '346px',
     },
-
 }));
 
 export default useStyles;

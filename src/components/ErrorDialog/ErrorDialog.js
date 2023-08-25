@@ -31,10 +31,10 @@ const Title = (props) => {
     );
 };
 
-export default function ErrorDialog({content, handleClose, open }) {
+export default function ErrorDialog({ content, handleClose, open }) {
     return (
         <div>
-            <Dialog onClose={handleClose} open={open} >
+            <Dialog onClose={handleClose} open={open}>
                 <Title
                     onClose={handleClose}
                     sx={{ color: 'red', minWidth: '300px' }}

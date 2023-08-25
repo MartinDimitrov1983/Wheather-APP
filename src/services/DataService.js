@@ -7,10 +7,14 @@ import {
 
 const DataService = () => ({
     getCurrentCondition: async (cityId) => {
-        return fetch(`${BASE_URL}${CURRENT_CONDITION_URL}/${cityId}?apikey=${API_KEY}&details=false`);
+        return fetch(
+            `${BASE_URL}${CURRENT_CONDITION_URL}/${cityId}?apikey=${API_KEY}&details=false`,
+        );
     },
     getFiveDay: async (cityId) => {
-        return fetch(`${BASE_URL}${FIVE_DAY_FORECAST}/${cityId}?apikey=${API_KEY}&metric=true`);
+        return fetch(
+            `${BASE_URL}${FIVE_DAY_FORECAST}/${cityId}?apikey=${API_KEY}&metric=true`,
+        );
     },
 });
 

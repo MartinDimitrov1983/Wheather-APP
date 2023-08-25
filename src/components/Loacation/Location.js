@@ -47,7 +47,7 @@ const Location = () => {
         <>
             <Box sx={{ marginBottom: 3 }}>
                 {closestCity ? (
-                    <Typography variant="h6" sx={{height: "47px"}}>
+                    <Typography variant="h6" sx={{ height: '47px' }}>
                         Your Location: {closestCity}
                     </Typography>
                 ) : (

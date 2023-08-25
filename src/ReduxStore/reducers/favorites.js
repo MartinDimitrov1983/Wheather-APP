@@ -1,9 +1,9 @@
 import {
     ADD_FAVORITE_CITY,
     REMOVE_FAVORITE_CITY,
-    FAVORITE_CITIES_WAETHER_LOADING,
-    FAVORITE_CITIES_WAETHER_LOADED,
-    FAVORITE_CITIES_WAETHER_LOADING_FAILED,
+    FAVORITE_CITIES_WEATHER_LOADING,
+    FAVORITE_CITIES_WEATHER_LOADED,
+    FAVORITE_CITIES_WEATHER_LOADING_FAILED,
 } from '../actions/favorites';
 
 const getFavorites = localStorage.getItem('favorites')
@@ -32,20 +32,20 @@ const favorites = (state = initialState, action) => {
                 ),
             };
         }
-        case FAVORITE_CITIES_WAETHER_LOADING: {
+        case FAVORITE_CITIES_WEATHER_LOADING: {
             return {
                 ...state,
                 isLoaded: false,
             };
         }
-        case FAVORITE_CITIES_WAETHER_LOADED: {
+        case FAVORITE_CITIES_WEATHER_LOADED: {
             return {
                 ...state,
                 isLoaded: true,
                 favorites: action.payload,
             };
         }
-        case FAVORITE_CITIES_WAETHER_LOADING_FAILED: {
+        case FAVORITE_CITIES_WEATHER_LOADING_FAILED: {
             return {
                 ...state,
                 isLoaded: true,

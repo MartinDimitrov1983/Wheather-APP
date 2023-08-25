@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, CircularProgress } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFavoriteCitiesWeather } from '../../ReduxStore/actions/favorites';
 import FavoriteList from '../../components/FavoriteList/FavoriteList';
 import useStyles from './classes';
 
 const FavoritePage = () => {
     const classes = useStyles();
-    const favorites = useSelector((state) => state.favorites.favorites);
+    const favCites = useSelector((state) => state.favorites);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getFavoriteCitiesWeather(favCites.favorites));
+    }, [dispatch]);
 
     return (
         <>
-            {favorites.length > 0 ? (
-                false ? (
+            {favCites.favorites.length > 0 ? (
+                !favCites.isLoaded ? (
                     <Box className={classes.loading}>
                         <CircularProgress />{' '}
                     </Box>
                 ) : (
                     <Box className={classes.cityWrapper}>
-                        <FavoriteList favorites={favorites} />
+                        <FavoriteList favorites={favCites.favorites} />
                     </Box>
                 )
             ) : (

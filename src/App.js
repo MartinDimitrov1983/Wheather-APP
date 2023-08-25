@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ThemeProvider,createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import store from './ReduxStore/store';
 import Navigation from './Navigation/Navigation';

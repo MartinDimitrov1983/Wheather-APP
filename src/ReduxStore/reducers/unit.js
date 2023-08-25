@@ -12,7 +12,6 @@ const unit = (state = initialState, action) => {
                 unit: state.unit === CELSIUS ? FAHRENHEIT : CELSIUS,
             };
         }
-
         default: {
             return state;
         }
