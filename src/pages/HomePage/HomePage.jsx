@@ -12,7 +12,10 @@ import {
     addFavoriteCity,
     removeFavoriteCity,
 } from '../../ReduxStore/actions/favorites';
-import { getCurrentCityData } from '../../ReduxStore/actions/currentCity';
+import {
+    getCurrentCityData,
+    currentCityClearError,
+} from '../../ReduxStore/actions/currentCity';
 import { BASE_URL, API_KEY, AUTOCOMPLETE_URL } from '../../helpers/constants';
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
 import FavoriteButton from '../../components/Button/Button';
@@ -31,9 +34,7 @@ const HomePage = () => {
         { cityCountry: 'GB', cityName: 'London', id: 328328 },
     ]);
     const [open, setOpen] = useState(false);
-    const [errOpen, setErrOpen] = useState('');
 
-    console.log(currentCityData);
     const isFavorite = (id) => {
         return !!favorites.find((city) => city.id === id);
     };
@@ -97,8 +98,9 @@ const HomePage = () => {
     };
 
     const handleCloseError = () => {
-        setErrOpen(false);
+        dispatch(currentCityClearError);
     };
+
 
     return (
         <>
@@ -156,8 +158,8 @@ const HomePage = () => {
                 </Box>
             )}
             <ErrorDialog
-                open={false}
-                content={'Error'}
+                open={!!currentCityData.error}
+                content={currentCityData.error?.massage || "Something went wrong!"}
                 handleClose={handleCloseError}
             />
         </>

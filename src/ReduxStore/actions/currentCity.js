@@ -3,8 +3,10 @@ export const PREFIX = 'CURRENT_CITY_MANAGER/';
 export const CURRENT_CITY_LOADING = `${PREFIX}CURRENT_CITY_LOADING`;
 export const CURRENT_CITY_LOADED = `${PREFIX}CURRENT_CITY_LOADED`;
 export const CURRENT_CITY_LOADING_FAILED = `${PREFIX}CURRENT_CITY_LOADING_FAILED`;
+export const CURRENT_CITY_CLEAR_ERROR = `${PREFIX}CURRENT_CITY_CLEAR_ERROR`;
 
 export const currentCityLoading = { type: CURRENT_CITY_LOADING };
+export const currentCityClearError = { type: CURRENT_CITY_CLEAR_ERROR };
 export const currentCityLoaded = (city) => ({
     type: CURRENT_CITY_LOADED,
     payload: city,

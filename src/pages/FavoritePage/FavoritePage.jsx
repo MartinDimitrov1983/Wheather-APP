@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, CircularProgress } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFavoriteCitiesWeather } from '../../ReduxStore/actions/favorites';
+import { getFavoriteCitiesWeather, favoriteCitiesClearError } from '../../ReduxStore/actions/favorites';
 import FavoriteList from '../../components/FavoriteList/FavoriteList';
+import ErrorDialog from '../../components/ErrorDialog/ErrorDialog';
 import useStyles from './classes';
 
 const FavoritePage = () => {
@@ -13,6 +14,10 @@ const FavoritePage = () => {
     useEffect(() => {
         dispatch(getFavoriteCitiesWeather(favCites.favorites));
     }, [dispatch]);
+
+    const handleCloseError = () => {
+        dispatch(favoriteCitiesClearError);
+    };
 
     return (
         <>
@@ -29,6 +34,11 @@ const FavoritePage = () => {
             ) : (
                 <Typography variant="h5">Favorites not found.</Typography>
             )}
+            <ErrorDialog
+                open={!!favCites.error}
+                content={favCites.error?.massage || 'Something went wrong!'}
+                handleClose={handleCloseError}
+            />
         </>
     );
 };

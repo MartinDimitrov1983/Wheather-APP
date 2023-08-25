@@ -4,6 +4,7 @@ import {
     FAVORITE_CITIES_WEATHER_LOADING,
     FAVORITE_CITIES_WEATHER_LOADED,
     FAVORITE_CITIES_WEATHER_LOADING_FAILED,
+    FAVORITE_CITIES_CLEAR_ERROR,
 } from '../actions/favorites';
 
 const getFavorites = localStorage.getItem('favorites')
@@ -51,6 +52,9 @@ const favorites = (state = initialState, action) => {
                 isLoaded: true,
                 error: action.payload,
             };
+        }
+        case FAVORITE_CITIES_CLEAR_ERROR: {
+            return { ...state, error: null };
         }
 
         default: {

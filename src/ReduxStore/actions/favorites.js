@@ -6,6 +6,7 @@ export const GET_FAVORITE_CITIES_WEATHER = `${PREFIX}GET_FAVORITE_CITIES_WEATHER
 export const FAVORITE_CITIES_WEATHER_LOADING = `${PREFIX}FAVORITE_CITIES_WEATHER_LOADING`;
 export const FAVORITE_CITIES_WEATHER_LOADED = `${PREFIX}FAVORITE_CITIES_WEATHER_LOADED`;
 export const FAVORITE_CITIES_WEATHER_LOADING_FAILED = `${PREFIX}FAVORITE_CITIES_WEATHER_LOADING_FAILED`;
+export const FAVORITE_CITIES_CLEAR_ERROR = `${PREFIX}FAVORITE_CITIES_CLEAR_ERROR`;
 
 export const addFavoriteCity = (city) => ({
     type: ADD_FAVORITE_CITY,
@@ -19,6 +20,7 @@ export const removeFavoriteCity = (id) => ({
 export const favoriteCitiesWeatherLoading = {
     type: FAVORITE_CITIES_WEATHER_LOADING,
 };
+export const favoriteCitiesClearError = { type: FAVORITE_CITIES_CLEAR_ERROR };
 export const favoriteCitiesWeatherLoadied = (cities) => ({
     type: FAVORITE_CITIES_WEATHER_LOADED,
     payload: cities,
@@ -34,10 +36,9 @@ export function getFavoriteCitiesWeather(cities) {
         const citiesWithTemp = [];
         try {
             for (const city of cities) {
-                console.log(city);
                 const response = await DataService.getCurrentCondition(city.id);
                 const data = await response.json();
-                console.log(data);
+
                 const favCityWithTemp = {
                     ...city,
                     temperature: {
@@ -46,7 +47,6 @@ export function getFavoriteCitiesWeather(cities) {
                         },
                     },
                 };
-                console.log(favCityWithTemp);
                 citiesWithTemp.push(favCityWithTemp);
             }
             dispatch(favoriteCitiesWeatherLoadied(citiesWithTemp));

@@ -2,6 +2,7 @@ import {
     CURRENT_CITY_LOADED,
     CURRENT_CITY_LOADING,
     CURRENT_CITY_LOADING_FAILED,
+    CURRENT_CITY_CLEAR_ERROR,
 } from '../actions/currentCity';
 
 const initialState = {
@@ -30,6 +31,12 @@ const currentCity = (state = initialState, action) => {
                 ...state,
                 isLoaded: true,
                 error: action.payload,
+            };
+        }
+        case CURRENT_CITY_CLEAR_ERROR: {
+            return {
+                ...state,
+                error: null,
             };
         }
 
