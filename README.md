@@ -1,8 +1,8 @@
 ## Installation
 
 ```
-npm install
-npm start
+npm run install
+npm run start
 ```
 
 ### Technologies
