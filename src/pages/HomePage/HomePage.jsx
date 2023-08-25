@@ -15,6 +15,7 @@ import {
 import {
     getCurrentCityData,
     currentCityClearError,
+    currentCitySetError,
 } from '../../ReduxStore/actions/currentCity';
 import { BASE_URL, API_KEY, AUTOCOMPLETE_URL } from '../../helpers/constants';
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
@@ -72,7 +73,7 @@ const HomePage = () => {
             setOptions(newOptions);
             setOpen(!!newOptions.length);
         } catch (error) {
-            setErrOpen(error.massage);
+            dispatch(currentCitySetError(error));
         }
     };
 

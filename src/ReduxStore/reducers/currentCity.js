@@ -3,6 +3,7 @@ import {
     CURRENT_CITY_LOADING,
     CURRENT_CITY_LOADING_FAILED,
     CURRENT_CITY_CLEAR_ERROR,
+    CURRENT_CITY_SET_ERROR,
 } from '../actions/currentCity';
 
 const initialState = {
@@ -38,6 +39,9 @@ const currentCity = (state = initialState, action) => {
                 ...state,
                 error: null,
             };
+        }
+        case CURRENT_CITY_SET_ERROR: {
+            return { ...state, error: action.payload };
         }
 
         default: {
