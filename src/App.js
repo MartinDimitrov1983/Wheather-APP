@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useMemo } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { ThemeProvider,createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import store from './ReduxStore/store';
+import Navigation from './Navigation/Navigation';
+import PageLayout from './PageLayout/PageLayout';
+import { DARK_THEME, LIGHT_THEME } from './helpers/constants';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [mode, setMode] = useState(LIGHT_THEME);
+    const colorMode = useMemo(
+        () => ({
+            toggleColorMode: () => {
+                setMode((prevMode) =>
+                    prevMode === LIGHT_THEME ? DARK_THEME : LIGHT_THEME,
+                );
+            },
+        }),
+        [],
+    );
+
+    const theme = React.useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode,
+                    type: mode,
+                },
+            }),
+        [mode],
+    );
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <PageLayout toggleTheme={colorMode.toggleColorMode}>
+                        <Navigation />
+                    </PageLayout>
+                </ThemeProvider>
+            </BrowserRouter>
+        </Provider>
+    );
 }
 
 export default App;
